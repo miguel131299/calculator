@@ -60,10 +60,10 @@ body {
     border-radius: 10px;
 }
 
-#display-operation, #display-result {
-    height: 50%;
+#display-value {
+    height: 100%;
     text-align: end;
-    font-size: 2.5rem;
+    font-size: 5rem;
 }
 
 #button-container {
