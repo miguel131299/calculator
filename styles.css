@@ -1,5 +1,5 @@
 :root {
-    --background: #080429; 
+    --background: #f27b1f; 
     --text: white;
     --calculator: #171718;
     --display: #373737;
@@ -42,6 +42,8 @@ body {
     max-width: 400px;
     min-height: 500px;
     margin: auto;
+    border-radius: 10px;
+    box-shadow: 4px 5px 5px 0px rgb(0 0 0 / 50%);
 }
 
 #display {
@@ -54,35 +56,39 @@ body {
     margin-bottom: 2rem;
     padding: 1rem;
     height: 10vh;
-    box-shadow: inset 2px 3px 5px 0px rgb(0 0 0 / 70%)
+    box-shadow: inset 2px 3px 5px 0px rgb(0 0 0 / 70%);
+    border-radius: 10px;
 }
 
-#operation, #result {
+#display-operation, #display-result {
     height: 50%;
     text-align: end;
+    font-size: 2.5rem;
 }
 
 #button-container {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
-    row-gap: 5px;
-    column-gap: 5px;
+    row-gap: 10px;
+    column-gap: 10px;
     height: 40vh;
 }
 
 .button {
     color: var(--text);
+    font-size: 2rem;
+    font-weight: 700;
     border-radius: 60px;
     box-shadow: 4px 5px 5px 0px rgb(0 0 0 / 50%);
     border: 1px solid silver;
 }
 
-.operation-button {
+.operation-button, .special-button {
     background-color: var(--operation-button);
 }
 
-.number-button {
+.number-button, .answer-button {
     background-color: var(--number-button);
 }
 
