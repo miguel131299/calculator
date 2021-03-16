@@ -7,32 +7,104 @@ const delButton = document.getElementById("delete-button");
 const ansButton = document.getElementById("answer=button");
 const resultButton = document.getElementById("result-button");
 
+//temporary values used for operations
+let tempResult = 0;
+let tempOperation = null;
+
+//TODO: Handle operation clicked twice in a row
+let operationJustCliked = false;
+let numberJustClicked = false;
+
 //add event listener to numbers
-numberButtons.forEach(button => button.addEventListener("click", appendToDisplayOperation));
+numberButtons.forEach(button => button.addEventListener("click", numberClicked));
 
 //add event listeners to operations
-operationButtons.forEach(button => button.addEventListener("click",))
+operationButtons.forEach(button => button.addEventListener("click",operationClicked));
+
+//add event listener to resultButton
+resultButton.addEventListener("click", displayResult);
 
 function operationClicked(e) {
+
+    //save value in display
+    tempResult = parseFloat(displayValue.textContent);
+
+    //get ID of clicked element
+    const idOfElem = e.target.id;
+
+    //set tempOperation according to ID of Element
+    switch (idOfElem) {
+
+        case "modulo-button":
+            tempOperation = "mod";
+            break;
+
+        case "div-button":
+            tempOperation = "div";
+            break;
+
+        case "add-button":
+            tempOperation = "add";
+            break;
     
+            
+        case "sub-button":
+            tempOperation = "sub";
+            break;
+
+        case "mul-button":
+            tempOperation = "mul";
+            break;
+    
+        default:
+            break;
+    }
+
+    //set operationJustClicked
+    operationJustCliked = true;
+
+    //reset numberJustClicked
+    numberJustClicked = false;
 }
 
-function appendToDisplayOperation(e) {
+function numberClicked(e) {
 
     //TODO: Handle multiple points
 
     //if text not too long
     if (displayValue.textContent.length < 26) {
 
-        if (displayValue.textContent === "0") {
+        //if 0 is being displayed or an operation was just clicked
+        if (displayValue.textContent === "0" || operationJustCliked) {
+
+            //display the number
             displayValue.textContent = this.textContent;
+
         } else {
+
+            //append number to display value
             displayValue.textContent += this.textContent;
         }
     
     } else {
         //TODO: print error message
     }
+
+    //reset JustClicked
+    operationJustCliked = false;
+
+    //set numberJustClicked
+    numberJustClicked = true;
+}
+
+function displayResult() {
+    const displayOperator = parseFloat(displayValue.textContent);
+    const result = operate(tempOperation, tempResult, displayOperator);
+
+    tempOperation = null;
+    tempResult = result;
+
+    displayValue.textContent = result;
 }
 
 //Operation functions
@@ -50,7 +122,7 @@ const modulo = (a, b) => a % b;
 const operate = function (operator, a, b) {
     
     switch (operator) {
-        case "sum":
+        case "add":
             return add(a, b);
         
         case "sub":
