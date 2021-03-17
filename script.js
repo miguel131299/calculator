@@ -19,7 +19,7 @@ let resultJustClicked = false;
 numberButtons.forEach(button => button.addEventListener("click", numberClicked));
 
 //add event listeners to operations
-operationButtons.forEach(button => button.addEventListener("click",operationClicked));
+operationButtons.forEach(button => button.addEventListener("click", operationClicked));
 
 //add event listener to resultButton
 resultButton.addEventListener("click", displayResult);
@@ -34,13 +34,13 @@ delButton.addEventListener("click", deleteChar);
 plusMinusButton.addEventListener("click", changeSign);
 
 function changeSign() {
-    
+
     //if negative, remove minus sign
     if (displayValue.textContent.startsWith("-")) {
 
         displayValue.textContent = displayValue.textContent.slice(1);
-    
-    //else, add minus sign
+
+        //else, add minus sign
     } else {
         displayValue.textContent = "-" + displayValue.textContent;
     }
@@ -79,8 +79,8 @@ function chooseOperation(operation) {
         case "add-button":
             tempOperation = "add";
             break;
-    
-            
+
+
         case "sub-button":
             tempOperation = "sub";
             break;
@@ -88,7 +88,7 @@ function chooseOperation(operation) {
         case "mul-button":
             tempOperation = "mul";
             break;
-    
+
         default:
             break;
     }
@@ -104,7 +104,7 @@ function numberClicked(e) {
 }
 
 function displayNumber(str) {
-    
+
     //if text not too long
     if (displayValue.textContent.length < 13 || operationJustCliked) {
 
@@ -133,8 +133,8 @@ function displayNumber(str) {
             //append number to display value
             displayValue.textContent += str;
         }
-    
-    } 
+
+    }
 
     //reset JustClicked
     operationJustCliked = false;
@@ -142,7 +142,7 @@ function displayNumber(str) {
 }
 
 function displayResult() {
-    
+
     //get number being displayed
     const displayOperator = parseFloat(displayValue.textContent);
 
@@ -183,12 +183,12 @@ function clear() {
 function deleteChar() {
 
     if (displayValue.textContent.length > 1) {
-    
+
         //remove last character of display value
         displayValue.textContent = displayValue.textContent.slice(0, -1);
 
-    } else if(displayValue.textContent.length === 1){
-        
+    } else if (displayValue.textContent.length === 1) {
+
         //set display to 0
         displayValue.textContent = "0";
 
@@ -211,19 +211,19 @@ const divide = (a, b) => a / b;
 const modulo = (a, b) => a % b;
 
 const operate = function (operator, a, b) {
-    
+
     switch (operator) {
         case "add":
             return add(a, b);
-        
+
         case "sub":
             return substract(a, b);
-        
+
         case "mul":
             return multiply(a, b);
 
         case "div":
-            
+
             //avoid division by 0
             if (b === 0) {
                 return "MATH ERROR";
@@ -238,7 +238,7 @@ const operate = function (operator, a, b) {
             }
 
             return modulo(a, b);
-    
+
         default:
             break;
     }
@@ -272,7 +272,7 @@ function filterInput(e) {
         case "/":
             chooseOperation("div-button");
             break;
-    
+
         case "*":
             chooseOperation("mul-button");
             break;
@@ -283,6 +283,7 @@ function filterInput(e) {
 
         //delete pressed
         case "Delete":
+        case "Backspace":
             deleteChar();
             break;
 
@@ -291,8 +292,8 @@ function filterInput(e) {
         case "=":
             displayResult();
             break;
-    
-    
+
+
         default:
             break;
     }
