@@ -14,6 +14,7 @@ let tempOperation = null;
 //TODO: Handle operation clicked twice in a row
 let operationJustCliked = false;
 let firstOperationClicked = true;
+let resultJustClicked = false;
 
 //add event listener to numbers
 numberButtons.forEach(button => button.addEventListener("click", numberClicked));
@@ -33,7 +34,7 @@ delButton.addEventListener("click", deleteChar);
 function operationClicked(e) {
 
     //if not firstOperationClicked
-    if (!firstOperationClicked) {
+    if (!firstOperationClicked && !resultJustClicked) {
         displayResult();
     }
 
@@ -71,11 +72,11 @@ function operationClicked(e) {
             break;
     }
 
-    //set operationJustClicked
-    operationJustCliked = true;
 
-    //set firstOperationClicked
+    //FLAGS:
+    operationJustCliked = true;
     firstOperationClicked = false;
+    resultJustClicked = false;
 }
 
 function numberClicked(e) {
@@ -85,8 +86,13 @@ function numberClicked(e) {
     //if text not too long
     if (displayValue.textContent.length < 13 || operationJustCliked) {
 
-        //if 0 is being displayed or an operation was just clicked
-        if (displayValue.textContent === "0" || operationJustCliked) {
+        //if 0 is being displayed or an operation was just clicked or result was just clicked
+        if (displayValue.textContent === "0" || operationJustCliked || resultJustClicked) {
+
+            //if result was just clicked, clear calculator
+            if (resultJustClicked) {
+                clear();
+            }
 
             //display the number
             displayValue.textContent = this.textContent;
@@ -103,20 +109,32 @@ function numberClicked(e) {
 
     //reset JustClicked
     operationJustCliked = false;
+    resultJustClicked = false;
 }
 
 function displayResult() {
+    
+    //get number being displayed
     const displayOperator = parseFloat(displayValue.textContent);
+
+    //get result of operation
     let result = operate(tempOperation, tempResult, displayOperator);
 
+    //if result too long, convert to exponential notation
     if (result.toString().length > 13) {
         result = result.toExponential(5);
     }
 
+    //reset tempOperation and save result
     tempOperation = null;
     tempResult = result;
 
+    //display result
     displayValue.textContent = result;
+
+    //update flags
+    resultJustClicked = true;
+    operationJustCliked = false;
 }
 
 function clear() {
@@ -126,6 +144,7 @@ function clear() {
 
     //reset flags
     operationJustCliked = false;
+    resultJustClicked = false;
     firstOperationClicked = true;
 
     //reset display value
