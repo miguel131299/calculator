@@ -27,6 +27,9 @@ resultButton.addEventListener("click", displayResult);
 //add event listener to AC-button
 acButton.addEventListener("click", clear);
 
+//add event listener to Delete Button
+delButton.addEventListener("click", deleteChar);
+
 function operationClicked(e) {
 
     //save value in display
@@ -75,7 +78,7 @@ function numberClicked(e) {
     //TODO: Handle multiple points
 
     //if text not too long
-    if (displayValue.textContent.length < 26) {
+    if (displayValue.textContent.length < 13) {
 
         //if 0 is being displayed or an operation was just clicked
         if (displayValue.textContent === "0" || operationJustCliked) {
@@ -109,6 +112,8 @@ function displayResult() {
 
     displayValue.textContent = result;
 
+    //TODO: Handle long decimal values
+
 }
 
 function clear() {
@@ -122,6 +127,24 @@ function clear() {
 
     //reset display value
     displayValue.textContent = "0";
+}
+
+function deleteChar() {
+
+    if (displayValue.textContent.length > 1) {
+    
+        //remove last character of display value
+        displayValue.textContent = displayValue.textContent.slice(0, -1);
+
+    } else if(displayValue.textContent.length === 1){
+        
+        //set display to 0
+        displayValue.textContent = "0";
+
+    } else {
+        //reset calculator
+        clear();
+    }
 }
 
 //Operation functions
