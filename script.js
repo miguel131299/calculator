@@ -81,10 +81,17 @@ function operationClicked(e) {
 
 function numberClicked(e) {
 
-    //TODO: Handle multiple points
-
     //if text not too long
     if (displayValue.textContent.length < 13 || operationJustCliked) {
+
+        //if "." was clicked
+        if (this.textContent === ".") {
+
+            //if number already contains ".", don't do anything
+            if (display.textContent.includes(".")) {
+                return;
+            }
+        }
 
         //if 0 is being displayed or an operation was just clicked or result was just clicked
         if (displayValue.textContent === "0" || operationJustCliked || resultJustClicked) {
