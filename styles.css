@@ -103,7 +103,7 @@ body {
     background-color: var(--operation-button);
 }
 
-.number-button, .answer-button {
+.number-button, .plus-minus-button {
     background-color: var(--number-button);
 }
 

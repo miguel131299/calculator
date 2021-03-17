@@ -4,14 +4,13 @@ const operationButtons = document.querySelectorAll(".operation-button");
 const displayValue = document.getElementById("display-value");
 const acButton = document.getElementById("AC-button");
 const delButton = document.getElementById("delete-button");
-const ansButton = document.getElementById("answer=button");
+const plusMinusButton = document.getElementById("plus-minus-button");
 const resultButton = document.getElementById("result-button");
 
 //temporary values used for operations
 let tempResult = 0;
 let tempOperation = null;
 
-//TODO: Handle operation clicked twice in a row
 let operationJustCliked = false;
 let firstOperationClicked = true;
 let resultJustClicked = false;
@@ -30,6 +29,22 @@ acButton.addEventListener("click", clear);
 
 //add event listener to Delete Button
 delButton.addEventListener("click", deleteChar);
+
+//add event listener to plusMinusButton
+plusMinusButton.addEventListener("click", changeSign);
+
+function changeSign() {
+    
+    //if negative, remove minus sign
+    if (displayValue.textContent.startsWith("-")) {
+
+        displayValue.textContent = displayValue.textContent.slice(1);
+    
+    //else, add minus sign
+    } else {
+        displayValue.textContent = "-" + displayValue.textContent;
+    }
+}
 
 function operationClicked(e) {
 
@@ -72,7 +87,6 @@ function operationClicked(e) {
             break;
     }
 
-
     //FLAGS:
     operationJustCliked = true;
     firstOperationClicked = false;
@@ -110,9 +124,7 @@ function numberClicked(e) {
             displayValue.textContent += this.textContent;
         }
     
-    } else {
-        //TODO: print error message
-    }
+    } 
 
     //reset JustClicked
     operationJustCliked = false;
