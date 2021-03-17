@@ -13,7 +13,7 @@ let tempOperation = null;
 
 //TODO: Handle operation clicked twice in a row
 let operationJustCliked = false;
-let numberJustClicked = false;
+let firstOperationClicked = true;
 
 //add event listener to numbers
 numberButtons.forEach(button => button.addEventListener("click", numberClicked));
@@ -31,6 +31,11 @@ acButton.addEventListener("click", clear);
 delButton.addEventListener("click", deleteChar);
 
 function operationClicked(e) {
+
+    //if not firstOperationClicked
+    if (!firstOperationClicked) {
+        displayResult();
+    }
 
     //save value in display
     tempResult = parseFloat(displayValue.textContent);
@@ -69,8 +74,8 @@ function operationClicked(e) {
     //set operationJustClicked
     operationJustCliked = true;
 
-    //reset numberJustClicked
-    numberJustClicked = false;
+    //set firstOperationClicked
+    firstOperationClicked = false;
 }
 
 function numberClicked(e) {
@@ -98,9 +103,6 @@ function numberClicked(e) {
 
     //reset JustClicked
     operationJustCliked = false;
-
-    //set numberJustClicked
-    numberJustClicked = true;
 }
 
 function displayResult() {
@@ -123,7 +125,7 @@ function clear() {
 
     //reset flags
     operationJustCliked = false;
-    numberJustClicked = false;
+    firstOperationClicked = true;
 
     //reset display value
     displayValue.textContent = "0";
