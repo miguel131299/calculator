@@ -24,6 +24,9 @@ operationButtons.forEach(button => button.addEventListener("click",operationClic
 //add event listener to resultButton
 resultButton.addEventListener("click", displayResult);
 
+//add event listener to AC-button
+acButton.addEventListener("click", clear);
+
 function operationClicked(e) {
 
     //save value in display
@@ -105,6 +108,20 @@ function displayResult() {
     tempResult = result;
 
     displayValue.textContent = result;
+
+}
+
+function clear() {
+    //reset temporary values
+    tempOperation = null;
+    tempResult = 0;
+
+    //reset flags
+    operationJustCliked = false;
+    numberJustClicked = false;
+
+    //reset display value
+    displayValue.textContent = "0";
 }
 
 //Operation functions
