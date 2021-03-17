@@ -48,6 +48,13 @@ function changeSign() {
 
 function operationClicked(e) {
 
+    const idOfElem = e.target.id;
+
+    chooseOperation(idOfElem)
+}
+
+function chooseOperation(operation) {
+
     //if not firstOperationClicked
     if (!firstOperationClicked && !resultJustClicked) {
         displayResult();
@@ -57,10 +64,9 @@ function operationClicked(e) {
     tempResult = parseFloat(displayValue.textContent);
 
     //get ID of clicked element
-    const idOfElem = e.target.id;
 
     //set tempOperation according to ID of Element
-    switch (idOfElem) {
+    switch (operation) {
 
         case "modulo-button":
             tempOperation = "mod";
@@ -94,7 +100,11 @@ function operationClicked(e) {
 }
 
 function numberClicked(e) {
+    displayNumber(this.textContent);
+}
 
+function displayNumber(str) {
+    
     //if text not too long
     if (displayValue.textContent.length < 13 || operationJustCliked) {
 
@@ -116,12 +126,12 @@ function numberClicked(e) {
             }
 
             //display the number
-            displayValue.textContent = this.textContent;
+            displayValue.textContent = str;
 
         } else {
 
             //append number to display value
-            displayValue.textContent += this.textContent;
+            displayValue.textContent += str;
         }
     
     } 
@@ -233,3 +243,58 @@ const operate = function (operator, a, b) {
             break;
     }
 }
+
+//KEYBOARD SUPPORT
+
+window.addEventListener("keydown", filterInput);
+
+function filterInput(e) {
+
+    //get key
+    let key = e.key;
+
+    //if number pressed, display it
+    if (!isNaN(key)) {
+        displayNumber(key);
+    }
+
+    switch (key) {
+
+        //Operations pressed
+        case "+":
+            chooseOperation("add-button");
+            break;
+
+        case "-":
+            chooseOperation("sub-button");
+            break;
+
+        case "/":
+            chooseOperation("div-button");
+            break;
+    
+        case "*":
+            chooseOperation("mul-button");
+            break;
+
+        case "%":
+            chooseOperation("modulo-button");
+            break;
+
+        //delete pressed
+        case "Delete":
+            deleteChar();
+            break;
+
+        //enter or result pressed
+        case "Enter":
+        case "=":
+            displayResult();
+            break;
+    
+    
+        default:
+            break;
+    }
+}
+
