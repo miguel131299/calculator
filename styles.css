@@ -1,13 +1,12 @@
-/* TODO: Fix Phone View */
-
 :root {
     --background: #f27b1f; 
     --text: white;
     --calculator: #171718;
     --display: #373737;
     --display-text: #499122;
-    --number-button: #484c4f;
+    --number-button: #1c2a33;
     --operation-button: #5396f6;
+    --button-hover: #585858;
 }
 
 * {
@@ -77,14 +76,23 @@ body {
     height: 40vh;
 }
 
-/* TODO: add animation to buttons */
 .button {
     color: var(--text);
     font-size: 2rem;
     font-weight: 700;
-    border-radius: 60px;
+    border-radius: 30px;
     box-shadow: 4px 5px 5px 0px rgb(0 0 0 / 50%);
     border: 1px solid silver;
+    transition: all .3s ease;
+}
+
+.button:hover {
+    background-color: var(--button-hover);
+    transform: scale(1.1);
+}
+
+.button:active {
+    transform: translateY(0.3rem);
 }
 
 .button:focus {
@@ -97,5 +105,19 @@ body {
 
 .number-button, .answer-button {
     background-color: var(--number-button);
+}
+
+@media (max-width: 736px) {
+
+    .title {
+        font-size: 2.3rem;
+        margin-bottom: 5rem;
+    }
+
+    #calculator-container {
+        min-height: 300px;
+        max-width: 300px;
+    }
+
 }
 
