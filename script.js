@@ -83,7 +83,7 @@ function numberClicked(e) {
     //TODO: Handle multiple points
 
     //if text not too long
-    if (displayValue.textContent.length < 13) {
+    if (displayValue.textContent.length < 13 || operationJustCliked) {
 
         //if 0 is being displayed or an operation was just clicked
         if (displayValue.textContent === "0" || operationJustCliked) {
@@ -107,15 +107,16 @@ function numberClicked(e) {
 
 function displayResult() {
     const displayOperator = parseFloat(displayValue.textContent);
-    const result = operate(tempOperation, tempResult, displayOperator);
+    let result = operate(tempOperation, tempResult, displayOperator);
+
+    if (result.toString().length > 13) {
+        result = result.toExponential(5);
+    }
 
     tempOperation = null;
     tempResult = result;
 
     displayValue.textContent = result;
-
-    //TODO: Handle long decimal values
-
 }
 
 function clear() {
